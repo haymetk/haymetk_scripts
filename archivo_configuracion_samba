@@ -1,0 +1,8 @@
+[datos]
+   comment = directorio compartido
+   path = /mnt/DATOS
+   guest ok = no
+   writeable = yes
+   write list = usuario
+   browseable = yes
+   create mask = 0755
