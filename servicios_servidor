@@ -1,0 +1,53 @@
+#!/bin/bash
+
+echo "1) Habilitar Servicios."
+echo "2) Deshabilitar Servicios."
+echo
+read -p "Seleccione: " tareas
+echo
+
+if [ "$tareas" -eq 1 ]; then
+    echo ">> Montar Partición Cifrada de Nextcloud:"
+    # REEMPLAZA LAS 'X' CON TU UUID
+    sudo cryptsetup open UUID=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX NEXTCLOUD
+    sudo mount /dev/mapper/NEXTCLOUD /mnt/NEXTCLOUD
+    echo "Partición Cifrada de Nextcloud | Montada Correctamente"
+    echo
+
+    echo ">> Montar Partición Cifrada de Datos:"
+    # REEMPLAZA LAS 'X' CON TU UUID
+    sudo cryptsetup open UUID=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX DATOS
+    sudo mount /dev/mapper/DATOS /mnt/DATOS
+    echo "Partición Cifrada de Datos | Montada Correctamente"
+    echo
+
+    echo "Iniciando Contenedores Docker"
+    # REEMPLAZA CON EL ID O NOMBRE DE TUS CONTENEDORES
+    sudo docker start "ID_MARIADB" && echo "Maria DB | Ejecutandose"
+    sudo docker start "ID_NEXTCLOUD" && echo "Nextcloud | Ejecutandose"
+    echo
+    sudo systemctl start tailscaled && echo "Tailscale | Ejecutandose"
+
+elif [ "$tareas" -eq 2 ]; then
+    sudo systemctl stop smbd && echo "Servicio Samba | Detenido"
+    echo
+    sudo systemctl stop tailscaled && echo "Tailscale | Detenido"
+    echo
+    
+    # REEMPLAZA CON EL ID O NOMBRE DE TUS CONTENEDORES
+    sudo docker stop "ID_NEXTCLOUD" && echo "Nextcloud | Detenido"
+    sudo docker stop "ID_MARIADB" && echo "Maria DB | Detenido"
+    echo
+
+    sudo umount /mnt/NEXTCLOUD
+    sudo cryptsetup close NEXTCLOUD
+    echo "Partición Cifrada Nextcloud | Desmontada"
+    echo
+
+    sudo umount /mnt/DATOS
+    sudo cryptsetup close DATOS
+    echo "Partición Cifrada Datos | Desmontada"
+
+else
+    echo "Seleccione una opción valida"
+fi
