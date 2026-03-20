@@ -1,0 +1,44 @@
+general {
+    colors = true
+    interval = 5
+}
+
+order += "volume master"
+order += "cpu_usage"
+order += "memory"
+order += "ethernet _first_"
+order += "wireless _first_"
+order += "battery BAT0"
+order += "tztime local"
+
+volume master {
+    format = "Vol: %volume"
+}
+
+cpu_usage {
+    format = "CPU: %usage"
+}
+
+memory {
+    format = "RAM: %used / %total"
+    threshold_degraded = "1G"
+    format_degraded = "RAM: %used"
+}
+
+ethernet _first_ {
+    format_up = "LAN: %ip"
+    format_down = "LAN: down"
+}
+
+wireless _first_ {
+    format_up = "WIFI: %essid %ip"
+    format_down = "WIFI: down"
+}
+
+# battery BAT0 {
+#     format = "Bat: %status %percentage"
+# }
+
+tztime local {
+    format = "%Y-%m-%d %H:%M"
+}
