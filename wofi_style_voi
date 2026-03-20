@@ -1,0 +1,57 @@
+window {
+    margin: 0px;
+    padding: 10px;
+    background-color: #000000;
+    border-radius: 10px;
+    border: 1px solid #444444;
+}
+
+#input {
+    margin: 5px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #555555;
+    background-color: #111111;
+    color: #ffffff;
+}
+
+#inner-box {
+    margin: 5px;
+    padding: 10px;
+    background-color: #000000;
+}
+
+#outer-box {
+    margin: 5px;
+    padding: 10px;
+    background-color: #000000;
+}
+
+#scroll {
+    margin-left: 10px;
+}
+
+#entry {
+    padding: 8px;
+    border-radius: 6px;
+    background-color: transparent;
+    color: #ffffff;
+}
+
+#entry icon {
+    margin-right: 10px;
+}
+
+#entry:selected {
+    background-color: #ffffff;   /* Fondo blanco */
+    color: #000000;              /* Fallback */
+}
+
+#text:selected {
+    color: #000000;              /* Texto negro */
+}
+
+/* Sombra suave */
+window {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+}
