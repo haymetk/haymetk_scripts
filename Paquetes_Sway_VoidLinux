@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Habilitar repositorios nonfree
+sudo xbps-install -S void-repo-nonfree
+sudo xbps-install -Syu
+
+# Entorno Sway Completo:
+sudo xbps-install -S sway -y
+sudo xbps-install -S swaybg -y 
+sudo xbps-install -S swaylock -y
+sudo xbps-install -S swayidle -y
+sudo xbps-install -S i3status -y
+sudo xbps-install -S wofi -y
+sudo xbps-install -S foot -y
+sudo xbps-install -S mako -y
+sudo xbps-install -S grim -y
+sudo xbps-install -S slurp -y
+sudo xbps-install -S wl-clipboard -y
+sudo xbps-install -S xorg-server-xwayland -y
+sudo xbps-install -S mesa-dri -y
+sudo xbps-install -S xdg-user-dirs -y
+sudo xbps-install -S xdg-utils -y
+sudo xbps-install -S xdg-desktop-portal -y
+sudo xbps-install -S xdg-desktop-portal-wlr -y
+sudo xbps-install -S font-awesome -y
+sudo xbps-install -S noto-fonts-emoji -y
+sudo xbps-install -S noto-fonts-ttf -y
+fc-cache -fv
+
+# Red:
+sudo xbps-install -S NetworkManager -y
+sudo ln -s /etc/sv/NetworkManager /var/service
+
+# Permisos de sesión:
+sudo xbps-install -S seatd -y
+sudo xbps-install -S dbus -y
+sudo ln -s /etc/sv/seatd /var/service
+sudo ln -s /etc/sv/dbus /var/service
+sudo usermod -aG _seatd $USER
+
+# Comandos para poder ejecutar Sway:
+sudo xbps-install -S elogind -y
+sudo ln -s /etc/sv/elogind /var/service
+
+# Actualizar carpetas de usuario
+xdg-user-dirs-update
